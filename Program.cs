@@ -11,41 +11,51 @@ namespace CSharpSort
         private static Stopwatch stopWatch = new Stopwatch();
         private static DataRepository repository = new DataRepository();
 
-        public static void Main(string[] args)
+        public static async void Main(string[] args)
         {
             var data = IndexKeys();
 
-            if (args[0] == "bubble")
-                Execute(() => BubbleSort.Sort(data));
+            switch (args[0])
+            {
+                case "bubble":
+                    Execute(() => BubbleSort.Sort(data)); break;
 
-            else if (args[0] == "insertion")
-                Execute(() => InsertionSort.Sort(data));
+                case "insertion":
+                    Execute(() => InsertionSort.Sort(data)); break;
+
+                case "heap":
+                    Execute(() => HeapSort.Sort(data)); break;
+
+                default:
+                    Console.WriteLine("método não reconhecido"); break;
+            }
 
             Console.Read();
         }
 
+        private static Dictionary<string, int> IndexKeys()
+        {
+            Console.WriteLine("Indexando chaves de acesso...");
+
+            stopWatch.Start();
+            var data = repository.IndexByMonthAndYear();
+            stopWatch.Stop();
+
+            PrintRunTime();
+
+            return data;
+        }
+
         private static void Execute(Func<string[]> d)
         {
-            stopWatch.Start();
-
             Console.WriteLine("Ordernando...");
-            var ordered = d.Invoke();
 
+            stopWatch.Start();
+            var ordered = d.Invoke();
             stopWatch.Stop();
 
             Console.WriteLine("registros: " + ordered.Length);
             PrintRunTime();
-        }
-
-        private static Dictionary<string, int> IndexKeys()
-        {
-            stopWatch.Start();
-            Console.WriteLine("Indexando chaves de acesso...");
-            var data = repository.IndexByMonthAndYear();
-            stopWatch.Stop();
-            PrintRunTime();
-
-            return data;
         }
 
         private static void PrintRunTime()

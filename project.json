@@ -14,7 +14,9 @@
     },
     "dependencies": {},
     "commands": {
-        "CSharpSort": "CSharpSort"
+        "heap": "CSharpSort heap",
+        "bubble" : "CSharpSort bubble",
+        "insertion": "CSharpSort insertion"
     },
     "frameworks": {
         "dnx451": {},
