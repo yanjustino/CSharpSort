@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using CSharpSort.Data;
 using CSharpSort.Algorithms;
+using System.Collections.Generic;
 
 namespace CSharpSort
 {
@@ -12,29 +13,43 @@ namespace CSharpSort
 
         public static void Main(string[] args)
         {
-            stopWatch.Start();
-            Console.WriteLine("Indexando chaves de acesso...");
-            var data = repository.IndexByMonthAndYear();
-            stopWatch.Stop();
+            var data = IndexKeys();
 
-            PrintRunTime();
+            if (args[0] == "bubble")
+                Execute(() => BubbleSort.Sort(data));
 
+            else if (args[0] == "insertion")
+                Execute(() => InsertionSort.Sort(data));
+
+            Console.Read();
+        }
+
+        private static void Execute(Func<string[]> d)
+        {
             stopWatch.Start();
+
             Console.WriteLine("Ordernando...");
-            var ordered = BubbleSort.bubblesort(data);
-            //var ordered = InsertionSort.performInsertionSort(data);
+            var ordered = d.Invoke();
 
             stopWatch.Stop();
 
             Console.WriteLine("registros: " + ordered.Length);
             PrintRunTime();
+        }
 
-            Console.Read();
+        private static Dictionary<string, int> IndexKeys()
+        {
+            stopWatch.Start();
+            Console.WriteLine("Indexando chaves de acesso...");
+            var data = repository.IndexByMonthAndYear();
+            stopWatch.Stop();
+            PrintRunTime();
+
+            return data;
         }
 
         private static void PrintRunTime()
         {
-
             TimeSpan ts = stopWatch.Elapsed;
 
             string elapsedTime =

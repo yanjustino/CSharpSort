@@ -5,7 +5,7 @@ namespace CSharpSort.Algorithms
 {
     public static class BubbleSort
     {
-        public static string[] bubblesort(Dictionary<string, int> data)
+        public static string[] Sort(Dictionary<string, int> data)
         {
             int[] values = data.Values.ToArray();
             string[] keys = data.Keys.ToArray();
