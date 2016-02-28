@@ -12,7 +12,8 @@
     "tooling": {
         "defaultNamespace": "CSharpSort"
     },
-    "dependencies": {},
+    "dependencies": {
+    },
     "commands": {
         "heap": "CSharpSort heap",
         "bubble" : "CSharpSort bubble",

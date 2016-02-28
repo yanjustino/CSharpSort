@@ -7,14 +7,14 @@ namespace CSharpSort.Data
     {
         public static string[] Load(int size)
         {
-            return File.ReadAllLines("data/chaves-nfe.txt")
+            return File.ReadAllLines("./data/chaves-nfe.txt")
                        .Take(size)
                        .ToArray();
         }
 
         public static void Save(string[] lines)
         {
-            File.WriteAllLines("data/out.txt", lines);
+            File.WriteAllLines("./data/out.txt", lines);
         }
     }
 }
