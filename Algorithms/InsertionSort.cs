@@ -5,10 +5,13 @@ namespace CSharpSort.Algorithms
 {
     internal class InsertionSort
     {
+        private static int[] values;
+        private static string[] keys;
+
         public static string[] Sort(Dictionary<string, int> data)
         {
-            int[] values = data.Values.ToArray();
-            string[] keys = data.Keys.ToArray();
+            keys = data.Keys.ToArray();
+            values = data.Values.ToArray();
 
             for (int i = 0; i < values.Length - 1; i++)
             {
@@ -17,19 +20,22 @@ namespace CSharpSort.Algorithms
                 while (j > 0)
                 {
                     if (values[j - 1] > values[j])
-                    {
-                        int temp = values[j - 1];
-                        values[j - 1] = values[j];
-                        values[j] = temp;
-
-                        string tempK = keys[j - 1];
-                        keys[j - 1] = keys[j];
-                        keys[j] = tempK;
-                    }
+                        Swap(j);
                     j--;
                 }
             }
             return keys;
+        }
+
+        private static void Swap(int index)
+        {
+            int temp = values[index - 1];
+            values[index - 1] = values[index];
+            values[index] = temp;
+
+            string tempK = keys[index - 1];
+            keys[index - 1] = keys[index];
+            keys[index] = tempK;
         }
     }
 }

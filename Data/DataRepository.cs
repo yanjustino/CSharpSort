@@ -8,9 +8,9 @@ namespace CSharpSort.Data
     {
         private string[] _file;
 
-        public DataRepository()
+        public DataRepository(int size)
         {
-            _file = FileLoader.Load();
+            _file = FileLoader.Load(size);
         }
 
         public Dictionary<string, int> IndexByMonthAndYear()
@@ -21,5 +21,10 @@ namespace CSharpSort.Data
                    key => key.GetMonthAndYear()
                 );
         } 
+        
+        public void Save(string[] lines)
+        {
+            FileLoader.Save(lines);
+        }
     }
 }

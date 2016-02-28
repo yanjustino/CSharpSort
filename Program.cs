@@ -8,26 +8,26 @@ namespace CSharpSort
 {
     public class Program
     {
+        private static int size;
         private static Stopwatch stopWatch = new Stopwatch();
-        private static DataRepository repository = new DataRepository();
+        private static DataRepository repository;
 
         public static async void Main(string[] args)
         {
-            var data = IndexKeys();
-
-            switch (args[0])
+            if (ArgumentPolicies.IsValid(args))
             {
-                case "bubble":
-                    Execute(() => BubbleSort.Sort(data)); break;
+                size = Convert.ToInt32(args[1]);
+                repository = new DataRepository(size);
 
-                case "insertion":
-                    Execute(() => InsertionSort.Sort(data)); break;
+                var data = IndexKeys();
 
-                case "heap":
-                    Execute(() => HeapSort.Sort(data)); break;
-
-                default:
-                    Console.WriteLine("método não reconhecido"); break;
+                switch (args[0])
+                {
+                    case "bubble": Execute(() => BubbleSort.Sort(data)); break;
+                    case "insertion": Execute(() => InsertionSort.Sort(data)); break;
+                    case "heap": Execute(() => HeapSort.Sort(data)); break;
+                    default: Console.WriteLine("método não reconhecido"); break;
+                }
             }
 
             Console.Read();
@@ -55,7 +55,9 @@ namespace CSharpSort
             stopWatch.Stop();
 
             Console.WriteLine("registros: " + ordered.Length);
+            repository.Save(ordered);
             PrintRunTime();
+            Console.WriteLine("ordenação concluída");
         }
 
         private static void PrintRunTime()
@@ -70,6 +72,7 @@ namespace CSharpSort
                         ts.Milliseconds / 10);
 
             Console.WriteLine("RunTime " + elapsedTime);
+            Console.WriteLine();
         }
 
     }
