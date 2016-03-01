@@ -16,8 +16,7 @@ namespace CSharpSort
         {
             if (ArgumentPolicies.IsValid(args))
             {
-                size = Convert.ToInt32(args[1]);
-                repository = new DataRepository(size);
+                repository = new DataRepository(Convert.ToInt32(args[1]));
 
                 var data = IndexKeys();
 
